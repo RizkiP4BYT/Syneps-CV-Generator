@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MailOutlined,
   PhoneOutlined,
   LinkOutlined,
   GlobalOutlined,
-  ThunderboltOutlined,
 } from "@ant-design/icons";
 import { useFormData } from "./FormDataContext";
 import { Progress } from "antd";
 
-export default function PageCV() {
+interface PageCVProps {
+  onReady: () => void; // Define the type for onReady
+}
+
+export default function PageCV({ onReady }: PageCVProps) {
   const { formData } = useFormData();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (formData) {
+      setIsLoading(false);
+      onReady();
+    }
+  }, [formData, onReady]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="bg-white md:h-screen md:text-sm md:scale-100 text-xs">
       <div className="items-center flex flex-col">
@@ -57,7 +73,7 @@ export default function PageCV() {
             <div className="w-12 h-2 bg-black rounded-lg" />
           ) : null}
           {formData.education.length > 0 ? (
-            <h2 className="font-bold">EDUCATION</h2>
+            <h2 className="font-bold">RIWAYAT PENDIDIKAN</h2>
           ) : null}
         </div>
         {formData.education.map((edu, index) => (
@@ -79,7 +95,7 @@ export default function PageCV() {
             <div className="w-12 h-2 bg-black rounded-lg font-bold" />
           ) : null}
           {formData.work.length > 0 ? (
-            <h2 className="font-bold">WORK EXPERIENCE</h2>
+            <h2 className="font-bold">PENGALAMAN KERJA</h2>
           ) : null}
         </div>
         {formData.work.map((work, index) => (

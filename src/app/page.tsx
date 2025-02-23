@@ -1,19 +1,30 @@
-'use client';
+"use client";
 import BasicForm from "@/components/BasicForm";
 import EducationForm from "@/components/EducationForm";
 import PageCV from "@/components/PageCV";
 import ProjectForm from "@/components/ProjectForm";
 import SkillsForm from "@/components/SkillsForm";
 import WorkForm from "@/components/WorkForm";
-import GitHubButton from 'react-github-btn'
+import GitHubButton from "react-github-btn";
 import Link from "next/link";
-import Image from 'next/image'
+import Image from "next/image";
 import { FormDataProvider } from "@/components/FormDataContext";
 import { Layout, FloatButton } from "antd";
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { Header } = Layout;
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null; // or a loading spinner
+  }
+
   return (
     <main>
       <FloatButton
@@ -27,9 +38,14 @@ export default function Home() {
         <Layout>
           <Header className="bg-white text-black-500 shadow-sm flex flex-row">
             <Link href="/" className="font-bold">
-              <div className='md:flex-row md:flex flex flex-row'>
+              <div className="md:flex-row md:flex flex flex-row">
                 <div style={{ marginTop: "10px" }}>
-                  <Image width='34' height="34" alt='logo' src='/syn-logo-ori.png' />
+                  <Image
+                    width="34"
+                    height="34"
+                    alt="logo"
+                    src="/syn-logo-ori.png"
+                  />
                 </div>
                 Syneps Academy - CV Builder
               </div>
@@ -47,10 +63,9 @@ export default function Home() {
               <div>
                 <div className="md:p-2 scale-90 md:scale-100">
                   <div className="h-screen">
-                    <PageCV />
+                    <PageCV onReady={() => {}} />
                   </div>
-                  <div className="m-3">
-                  </div>
+                  <div className="m-3"></div>
                 </div>
               </div>
             </div>
@@ -60,4 +75,3 @@ export default function Home() {
     </main>
   );
 }
-
