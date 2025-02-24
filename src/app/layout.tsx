@@ -5,7 +5,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'CV generator',
+  title: 'Syneps CV Generator',
+  description: 'Syneps Academy CV Generator'
 }
 
 export default function RootLayout({
